@@ -99,6 +99,9 @@ env_base["x86_libtheora_opt_vc"] = False
 # avoid issues when building with different versions of python out of the same directory
 env_base.SConsignFile(".sconsign{0}.dblite".format(pickle.HIGHEST_PROTOCOL))
 
+# it is 2021, let's use more threads by default!
+env_base.SetOption("num_jobs", 16)
+
 # Build options
 
 customs = ["custom.py"]
