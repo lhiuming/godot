@@ -602,6 +602,7 @@ private:
 	MenuButton *transform_menu;
 	PopupMenu *gizmos_menu;
 	MenuButton *view_menu;
+	Button *capture_button;
 
 	AcceptDialog *accept;
 
@@ -736,6 +737,8 @@ private:
 
 	void _add_sun_to_scene(bool p_already_added_environment = false);
 	void _add_environment_to_scene(bool p_already_added_sun = false);
+
+	void _trigger_capture();
 
 	void _update_theme();
 

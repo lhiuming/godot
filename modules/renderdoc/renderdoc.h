@@ -2,8 +2,8 @@
 
 namespace RenderDoc {
 
-void Init();
+void init();
 
-void TriggerCapture();
+void trigger_capture();
 
 }

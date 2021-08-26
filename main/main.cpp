@@ -59,6 +59,7 @@
 #include "main/splash_editor.gen.h"
 #include "modules/modules_enabled.gen.h"
 #include "modules/register_module_types.h"
+#include "modules/renderdoc/renderdoc.h"
 #include "platform/register_platform_apis.h"
 #include "scene/main/scene_tree.h"
 #include "scene/main/window.h"
@@ -1526,6 +1527,9 @@ Error Main::setup2(Thread::ID p_main_tid_override) {
 	input = memnew(Input);
 
 	/* Initialize Display Server */
+
+	// Renderdoc must be init before the graphic device is created.
+	RenderDoc::init();
 
 	{
 		String rendering_driver; // temp broken

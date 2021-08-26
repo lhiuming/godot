@@ -42,6 +42,7 @@
 #include "editor/plugins/animation_player_editor_plugin.h"
 #include "editor/plugins/node_3d_editor_gizmos.h"
 #include "editor/plugins/script_editor_plugin.h"
+#include "modules/renderdoc/renderdoc.h"
 #include "scene/3d/camera_3d.h"
 #include "scene/3d/collision_shape_3d.h"
 #include "scene/3d/light_3d.h"
@@ -6578,6 +6579,11 @@ void Node3DEditor::_add_environment_to_scene(bool p_already_added_sun) {
 	undo_redo->commit_action();
 }
 
+// This must be a method in order to work with Callable thing.
+void Node3DEditor::_trigger_capture() {
+	RenderDoc::trigger_capture();
+}
+
 void Node3DEditor::_update_theme() {
 	tool_button[Node3DEditor::TOOL_MODE_SELECT]->set_icon(get_theme_icon(SNAME("ToolSelect"), SNAME("EditorIcons")));
 	tool_button[Node3DEditor::TOOL_MODE_MOVE]->set_icon(get_theme_icon(SNAME("ToolMove"), SNAME("EditorIcons")));
@@ -7277,6 +7283,12 @@ Node3DEditor::Node3DEditor(EditorNode *p_editor) {
 	hbc_menu->add_child(view_menu);
 
 	hbc_menu->add_child(memnew(VSeparator));
+
+	capture_button = memnew(Button);
+	capture_button->set_text(TTR("RDoc"));
+	capture_button->set_tooltip(TTR("Trigger a RenderDoc Capture in next frame."));
+	capture_button->connect("pressed", callable_mp(this, &Node3DEditor::_trigger_capture), varray());
+	hbc_menu->add_child(capture_button);
 
 	context_menu_container = memnew(PanelContainer);
 	hbc_context_menu = memnew(HBoxContainer);
